@@ -1,0 +1,152 @@
+/* Fullscreen modal background with blur */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6); /* dark overlay */
+  backdrop-filter: blur(10px); /* proper blurry background */
+  z-index: 1000;
+}
+
+/* Modal box */
+.modal-content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 15px;
+  padding: 30px;
+  width: 350px;
+  text-align: center; /* Center align all content */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Title */
+.modal-content h2 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Inputs */
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 0.95rem;
+}
+
+.modal-content input::placeholder {
+  color: #cccccc;
+}
+
+/* Actions container */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Green buttons */
+.btn-green {
+  flex: 1;
+  background: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.btn-green:hover {
+  background: #34d058;
+}
+
+/* Cancel button darker green */
+.btn-green.cancel {
+  background: #1e7e34;
+}
+
+.btn-green.cancel:hover {
+  background: #218838;
+}
+/* Remove ugly outline from all buttons */
+button {
+  outline: none;
+}
+button:focus {
+  outline: none;
+}
+
+/* Remove ugly outline from all buttons */
+button {
+  outline: none;
+}
+button:focus {
+  outline: none;
+}
+
+/* No outlines on buttons */
+button,
+button:focus {
+  outline: none;
+}
+
+/* Base styling */
+.icon-paper-plane {
+  width: 16px;
+  height: 14px;
+  margin-left: 5px;
+  transform: translateY(-4px) rotate(-37deg);
+  position: relative;
+}
+
+/* Motion path animation */
+.fly-path {
+  animation: flyCurve 1s ease forwards;
+  offset-path: path("M0,0 C40,-40 80,10 120,-30"); /* curve shape */
+  offset-rotate: auto;
+}
+
+/* Safari fallback */
+@supports not (offset-path: path("M0,0 L100,0")) {
+  .fly-path {
+    animation: flyFallback 1s ease forwards;
+  }
+}
+
+@keyframes flyCurve {
+  0% {
+    offset-distance: 0%;
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
+/* fallback straight flight if offset-path not supported */
+@keyframes flyFallback {
+  0% {
+    transform: translate(0, -6px) rotate(-20deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(120px, -50px) rotate(-15deg) scale(0.7);
+    opacity: 0;
+  }
+}

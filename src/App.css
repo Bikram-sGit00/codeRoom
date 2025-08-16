@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Macondo&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&family=Macondo&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&family=Macondo&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* .caveat-<uniquifier> {
+  font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+.open-sans-<uniquifier> {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+.dancing-script-<uniquifier> {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+} */
+
+html,
+body,
+#root,
+.app {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  /* font-family: "Open Sans", sans-serif; */
+  /* font-family: "Caveat", cursive; */
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+body {
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent black */
+  backdrop-filter: blur(10px); /* blur effect */
+  -webkit-backdrop-filter: blur(10px); /* for Safari */
+  color: white;
+}
+
+.app.dark {
+  background-color: #121212;
+  color: #fff;
+  min-height: 100vh;
+}
+.app.light {
+  background-color: #f8f9fa;
+  color: #000;
+  min-height: 100vh;
+
+  .nav-buttons button {
+    /* background: linear-gradient(135deg, #4caf50, #2e7d32); */
+    /* background: linear-gradient(135deg, #d24646, #c92c2c); */
+    background-color: #ffffff;
+    color: #121212;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .nav-buttons button:hover {
+    /* background: linear-gradient(135deg, #66bb6a, #388e3c); */
+    transform: scale(1.05);
+  }
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: inherit;
+  /* border-bottom: 2px solid gray; */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.search-bar {
+  flex: 1;
+  padding: 8px 53px;
+  border-radius: 17px;
+  border: 1px solid gray;
+  margin-right: 16px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+.nav-buttons button {
+  /* background: linear-gradient(135deg, #4caf50, #2e7d32); */
+  /* background: linear-gradient(135deg, #d24646, #c92c2c); */
+  background-color: #121212;
+  color: white;
+  border: none;
+  padding: 10px 17px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.nav-buttons button:hover {
+  /* background: linear-gradient(135deg, #66bb6a, #388e3c); */
+  transform: scale(1.05);
+}
+
+#editBtn {
+  height: 1vw;
+  margin-left: 0.2vw;
+  margin-bottom: -4px;
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+
+
+.app.dark .card {
+  background: #1e1e1e;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-image {
+  height: 120px;
+  background: #ccc;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.card-name {
+  font-weight: bold;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-actions {
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  margin-right: 10px;
+}
+
+.theme-toggle-btn {
+  position: relative;
+  top: 4.5px;
+  left: 11px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(200, 200, 200, 0.1);
+}
+
+.icon {
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.theme-toggle-btn:active .icon {
+  transform: rotate(360deg) scale(1.2);
+}
