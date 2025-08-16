@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./App.css";
 import "./utility.css";
 import "./New.css";
@@ -77,15 +78,33 @@ export default function App() {
         </div>
       </nav>
 
+
+
+
+
       {/* Main content */}
-      <div className="card-container">
-        {cards.map((card, index) => (
-          <div className="card" key={index}>
+      {cards.map((card, index) => (
+        <div className="card" key={index}>
+          <Link to={`/room/${card.name}`}>
             <div className="card-image">📷</div>
             <div className="card-name">{card.name}</div>
-          </div>
-        ))}
-      </div>
+          </Link>
+        </div>
+      ))}
+
+{/* 
+import { Link } from "react-router-dom";
+
+<div className="card" key={index}>
+  <Link to={`/room/${card.name}`}>
+    <div className="card-image">📷</div>
+    <div className="card-name">{card.name}</div>
+  </Link>
+</div> */}
+
+
+
+
 
       {/* Modal for Post */}
       {showModal && (
