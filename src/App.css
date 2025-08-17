@@ -25,6 +25,10 @@
   font-weight: <weight>;
   font-style: normal;
 } */
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
 
 html,
 body,

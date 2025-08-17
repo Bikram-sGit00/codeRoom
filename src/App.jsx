@@ -3,23 +3,47 @@ import { Link } from "react-router-dom";
 import "./App.css";
 import "./utility.css";
 import "./New.css";
-import "./RouterHandler" 
-// import "codeRoom/server/server.js"
+// import RouterHandler from "./RouterHandler";
+import { useEffect } from "react";
+import axios from "axios";
+
 export default function App() {
   const [theme, setTheme] = useState("dark");
-  const [cards, setCards] = useState([]);
+  // const [cards, setCards] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
+  const [cards, setCards] = useState([]);
+
+  // Load cards from backend
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/rooms")
+      .then((res) => setCards(res.data))
+      .catch((err) => console.error("Error fetching rooms:", err));
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  const addCard = () => {
+  // const addCard = () => {
+  //   if (name.trim() === "") return;
+  //   setCards([...cards, { name, image: null }]);
+  //   setName("");
+  //   setShowModal(false);
+  // };
+
+  const addCard = async () => {
     if (name.trim() === "") return;
-    setCards([...cards, { name, image: null }]);
-    setName("");
-    setShowModal(false);
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/rooms", { name });
+      setCards([...cards, res.data]); // append new room from backend
+      setName("");
+      setShowModal(false);
+    } catch (err) {
+      console.error("Error creating room:", err);
+    }
   };
 
   return (
@@ -79,10 +103,6 @@ export default function App() {
         </div>
       </nav>
 
-
-
-
-
       {/* Main content */}
       {cards.map((card, index) => (
         <div className="card" key={index}>
@@ -93,7 +113,7 @@ export default function App() {
         </div>
       ))}
 
-{/* 
+      {/* 
 import { Link } from "react-router-dom";
 
 <div className="card" key={index}>
@@ -102,10 +122,6 @@ import { Link } from "react-router-dom";
     <div className="card-name">{card.name}</div>
   </Link>
 </div> */}
-
-
-
-
 
       {/* Modal for Post */}
       {showModal && (

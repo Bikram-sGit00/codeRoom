@@ -8,7 +8,7 @@ function RoomPage() {
       <h1>Welcome to {roomId} Room 📚</h1>
       <div className="chat-section">
         {/* Later we’ll fetch messages from backend */}
-        <p>Chat will appear here...</p>
+        <p>will work on chat</p>
       </div>
     </div>
   );
