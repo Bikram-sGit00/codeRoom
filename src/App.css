@@ -1,30 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Macondo&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&family=Macondo&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&family=Macondo&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-
-/* .caveat-<uniquifier> {
-  font-family: "Caveat", cursive;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-
-.open-sans-<uniquifier> {
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-}
-.dancing-script-<uniquifier> {
-  font-family: "Dancing Script", cursive;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-} */
 *:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -49,6 +26,12 @@ body {
   backdrop-filter: blur(10px); /* blur effect */
   -webkit-backdrop-filter: blur(10px); /* for Safari */
   color: white;
+  background: #eeaeca;
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
 }
 
 .app.dark {
@@ -100,6 +83,7 @@ body {
   border-radius: 17px;
   border: 1px solid gray;
   margin-right: 16px;
+  background: transparent;
 }
 
 .nav-buttons {
@@ -149,8 +133,6 @@ body {
   transition: transform 0.2s;
 }
 
-
-
 .app.dark .card {
   background: #1e1e1e;
 }
@@ -165,7 +147,6 @@ body {
   background: #ccc;
   border-radius: 10px;
   margin-bottom: 10px;
-  
 }
 
 .card-name {
