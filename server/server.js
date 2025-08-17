@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 
-// CORS: allow your dev frontends
+// CORS: allow your dev frontend
 app.use(cors({
   origin: ["http://localhost:5173", "http://localhost:3000"],
 }));
