@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
 import "./utility.css";
 import "./New.css";
-// import RouterHandler from "./RouterHandler";
-import { useEffect } from "react";
 import axios from "axios";
 import getRandomImage from "./RandomImage";
 
 export default function App() {
   const [theme, setTheme] = useState("light");
-  // const [cards, setCards] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
+
+  // 🔹 Utility to make a safe slug from room name
+  const slugify = (text) =>
+    text
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9\-]/g, "");
 
   // Load cards from backend
   useEffect(() => {
@@ -26,13 +30,6 @@ export default function App() {
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
-
-  // const addCard = () => {
-  //   if (name.trim() === "") return;
-  //   setCards([...cards, { name, image: null }]);
-  //   setName("");
-  //   setShowModal(false);
-  // };
 
   const addCard = async () => {
     if (name.trim() === "") return;
@@ -52,7 +49,6 @@ export default function App() {
       {/* Navbar */}
       <nav className="navbar">
         <div className="logo">codeRoom🚀✨</div>
-        {/* <div className="logo glow">C O D E R O O M 🚀✨</div> */}
         <input
           type="text"
           placeholder="Search your CodeRoom Here ...."
@@ -62,7 +58,6 @@ export default function App() {
           <button onClick={toggleTheme} className="theme-toggle-btn">
             {theme === "light" ? (
               <span className="icon sun" key="sun">
-                {/* Sun SVG */}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <circle cx="12" cy="12" r="5" fill="#FFD600" />
                   <g stroke="#FFD600" strokeWidth="2">
@@ -79,7 +74,6 @@ export default function App() {
               </span>
             ) : (
               <span className="icon moon" key="moon">
-                {/* Moon SVG */}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M21 12.79A9 9 0 0111.21 3a7 7 0 100 14A9 9 0 0021 12.79z"
@@ -107,29 +101,14 @@ export default function App() {
       {/* Main content */}
       {cards.map((card, index) => (
         <div className="card" key={index}>
-          <Link to={`/room/${card.name}`}>
+          <Link to={`/room/${card.slug || slugify(card.name)}`}>
             <div className="card-image">
-              {" "}
-              <img
-                src={getRandomImage()}
-                alt="Room"
-                className="card-image"
-              />
+              <img src={getRandomImage()} alt="Room" className="card-image" />
             </div>
             <div className="card-name">{card.name}</div>
           </Link>
         </div>
       ))}
-
-      {/* 
-import { Link } from "react-router-dom";
-
-<div className="card" key={index}>
-  <Link to={`/room/${card.name}`}>
-    <div className="card-image">📷</div>
-    <div className="card-name">{card.name}</div>
-  </Link>
-</div> */}
 
       {/* Modal for Post */}
       {showModal && (
@@ -137,7 +116,6 @@ import { Link } from "react-router-dom";
           <div className="modal-content">
             <h2>Create New CodeRoom 🚀✨</h2>
 
-            {/* Room Name Input */}
             <input
               type="text"
               placeholder="Think of a codeRoom Name 🧑🏻‍💻 ..."
@@ -148,11 +126,7 @@ import { Link } from "react-router-dom";
               <button
                 onClick={() => {
                   const plane = document.querySelector(".icon-paper-plane");
-
-                  // Add animation class
                   plane.classList.add("fly-path");
-
-                  // When animation finishes → create room immediately
                   plane.addEventListener(
                     "animationend",
                     () => {
@@ -160,7 +134,7 @@ import { Link } from "react-router-dom";
                       plane.classList.remove("fly-path");
                     },
                     { once: true }
-                  ); // only runs once per click
+                  );
                 }}
                 className="btn-green post"
               >

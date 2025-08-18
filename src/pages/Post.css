@@ -4,7 +4,7 @@
   justify-content: center;
   height: 100vh;
   width: 100%;
-  background: #f9f9f9;
+  background: black;
 }
 
 .post-card {
@@ -18,6 +18,14 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 15px;
+  /* padding: 30px; */
+  /* width: 350px; */
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 .post-card h1 {
@@ -27,18 +35,17 @@
 }
 
 .post-card input {
-  width: 100%;
+  /* width: 100%; */
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 11px;
   border-radius: 8px;
   border: none;
   outline: none;
   background: rgba(255, 255, 255, 0.15);
   color: white;
   font-size: 0.95rem;
-
-  padding: 10px 12px;
-  border: 1px solid #ccc;
+  padding: 11px 4px;
+  /* border: 1px solid #ccc; */
   border-radius: 6px;
   font-size: 14px;
 }
@@ -54,6 +61,7 @@
 }
 
 .post-card textarea {
+  width: none;
   background: #000;
   min-height: 180px;
   padding: 12px;
@@ -84,8 +92,6 @@
 .post-card button:hover {
   background: #357abd;
 }
-
-
 
 /* Layout row for label + dropdown */
 .code-label-row {
@@ -118,7 +124,7 @@
 
 /* wide dropdown, nice look, no overflow */
 .lang-select {
-  min-width: 220px;           /* wide as requested */
+  min-width: 220px; /* wide as requested */
   max-width: 320px;
   padding: 8px 10px;
   border-radius: 8px;
@@ -126,7 +132,7 @@
   background: #1f1f1f;
   color: #f3f3f3;
   outline: none;
-  appearance: none;            /* cleaner look */
+  appearance: none; /* cleaner look */
   cursor: pointer;
 }
 
@@ -138,7 +144,7 @@
 
 /* Ensure textarea still below the row */
 .post-card textarea {
-  width: 100%;
+  /* width: 100%; */
   height: 220px;
   resize: vertical;
   border-radius: 10px;
