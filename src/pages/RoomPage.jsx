@@ -1,3 +1,4 @@
+// RoomPage.jsx
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./RoomPage.css";
@@ -12,28 +13,54 @@ export default function RoomPage() {
 
   const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
+  // ✅ Fetch existing messages
+  const fetchMessages = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/rooms/${slug}/messages`);
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(data);
+      } else {
+        console.error("❌ Failed to fetch messages");
+      }
+    } catch (err) {
+      console.error("❌ Error fetching messages:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMessages();
+  }, [slug]);
+
+  // ✅ highlight code when messages update
   useEffect(() => {
     Prism.highlightAll();
   }, [messages]);
 
+  // ✅ FIX: match backend schema (user + text instead of name + message)
   const handlePostSubmit = async (data) => {
-    const newMsg = {
+    const payload = {
       user: data.name || "anon",
       text: data.message || "",
       code: data.code || "",
-      lang: data.lang || "cpp", // Prism supports cpp, js, python, etc.
+      lang: data.lang || "cpp",
     };
 
-    setMessages((m) => [...m, newMsg]);
-
     try {
-      await fetch(`${API_BASE}/rooms/${slug}/messages`, {
+      const res = await fetch(`${API_BASE}/api/rooms/${slug}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newMsg),
+        body: JSON.stringify(payload),
       });
+
+      if (res.ok) {
+        const savedMsg = await res.json();
+        setMessages((prev) => [...prev, savedMsg]); // append new msg
+      } else {
+        console.error("❌ Failed to save message");
+      }
     } catch (err) {
-      console.error("Message send failed:", err);
+      console.error("❌ Message send failed:", err);
     }
 
     setShowPostForm(false);
@@ -63,7 +90,7 @@ export default function RoomPage() {
               <div className="code-card">
                 <div className="code-card-header">
                   <span>
-                    Code – {m.lang.toUpperCase()} – {m.code.split("\n").length}{" "}
+                    Code – {m.lang?.toUpperCase()} – {m.code.split("\n").length}{" "}
                     lines
                   </span>
                   <button
@@ -74,9 +101,7 @@ export default function RoomPage() {
                   </button>
                 </div>
                 <pre className="code-content">
-                  <code className={`language-${m.lang}`}>
-                    {m.code}
-                  </code>
+                  <code className={`language-${m.lang}`}>{m.code}</code>
                 </pre>
               </div>
             )}
@@ -90,9 +115,7 @@ export default function RoomPage() {
         </button>
       </footer>
 
-      {showPostForm && (
-        <Post onSubmit={handlePostSubmit} />
-      )}
+      {showPostForm && <Post onSubmit={handlePostSubmit} />}
     </div>
   );
 }

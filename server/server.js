@@ -5,12 +5,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 dotenv.config();
-
 const app = express();
 
+// ---- Middlewares ----
 app.use(
   cors({
     origin: ["http://localhost:5173", "http://localhost:3000"],
+    credentials: true,
   })
 );
 app.use(express.json());
@@ -21,8 +22,8 @@ mongoose
     serverSelectionTimeoutMS: 15000,
   })
   .then(() => console.log("✅ MongoDB connected"))
-  .catch((e) => {
-    console.error("❌ Mongo connect error:", e.message);
+  .catch((err) => {
+    console.error("❌ Mongo connect error:", err);
     process.exit(1);
   });
 
@@ -39,7 +40,9 @@ const MessageSchema = new mongoose.Schema(
   {
     roomSlug: { type: String, required: true, index: true },
     user: { type: String, default: "anon" },
-    text: { type: String, required: true },
+    text: { type: String, default: "" },
+    code: { type: String, default: "" },
+    lang: { type: String, default: "cpp" },
   },
   { timestamps: true }
 );
@@ -47,7 +50,7 @@ const MessageSchema = new mongoose.Schema(
 const Room = mongoose.model("Room", RoomSchema);
 const Message = mongoose.model("Message", MessageSchema);
 
-// Simple slugify
+// ---- Utils ----
 const slugify = (s) =>
   s
     .toLowerCase()
@@ -57,50 +60,72 @@ const slugify = (s) =>
     .replace(/-+/g, "-");
 
 // ---- Routes ----
-// ✅ add `/api` prefix everywhere
+
+// ✅ Create room
 app.post("/api/rooms", async (req, res) => {
   try {
-    const name = String(req.body.name || "");
-    if (!name.trim())
-      return res.status(400).json({ error: "Room name required" });
+    const name = String(req.body.name || "").trim();
+    if (!name) return res.status(400).json({ error: "Room name required" });
 
     const slug = slugify(name);
     let room = await Room.findOne({ slug });
     if (!room) room = await Room.create({ name, slug });
+
     res.json(room);
-  } catch (e) {
-    if (e.code === 11000)
+  } catch (err) {
+    console.error("❌ Error creating room:", err);
+    if (err.code === 11000) {
       return res.status(409).json({ error: "Room already exists" });
-    res.status(500).json({ error: "Server error" });
+    }
+    res.status(500).json({ error: "Server error while creating room" });
   }
 });
 
+// ✅ List rooms
 app.get("/api/rooms", async (_req, res) => {
-  const rooms = await Room.find().sort({ createdAt: -1 }).lean();
-  res.json(rooms);
+  try {
+    const rooms = await Room.find().sort({ createdAt: -1 }).lean();
+    res.json(rooms);
+  } catch (err) {
+    console.error("❌ Error fetching rooms:", err);
+    res.status(500).json({ error: "Server error while fetching rooms" });
+  }
 });
 
+// ✅ Get messages in a room
 app.get("/api/rooms/:slug/messages", async (req, res) => {
-  const msgs = await Message.find({ roomSlug: req.params.slug })
-    .sort({ createdAt: 1 })
-    .lean();
-  res.json(msgs);
+  try {
+    const msgs = await Message.find({ roomSlug: req.params.slug })
+      .sort({ createdAt: 1 })
+      .lean();
+    res.json(msgs);
+  } catch (err) {
+    console.error("❌ Error fetching messages:", err);
+    res.status(500).json({ error: "Server error while fetching messages" });
+  }
 });
 
+// ✅ Post message in a room
 app.post("/api/rooms/:slug/messages", async (req, res) => {
-  const text = String(req.body.text || "");
-  const user = String(req.body.user || "anon");
-  if (!text.trim()) return res.status(400).json({ error: "Text required" });
+  try {
+    const { name, message, code, lang } = req.body;
 
-  const room = await Room.findOne({ slug: req.params.slug });
-  if (!room) return res.status(404).json({ error: "Room not found" });
+    const room = await Room.findOne({ slug: req.params.slug });
+    if (!room) return res.status(404).json({ error: "Room not found" });
 
-  const msg = await Message.create({
-    roomSlug: req.params.slug,
-    text,
-    user,
-  });
-  res.json(msg);
+    const msg = await Message.create({
+      roomSlug: req.params.slug,
+      user: name || "anon",       // ✅ map `name` → `user`
+      text: message || "",        // ✅ map `message` → `text`
+      code: code || "",
+      lang: lang || "cpp",
+    });
+
+    res.status(201).json(msg);
+  } catch (err) {
+    console.error("❌ Error saving message:", err);
+    res.status(500).json({ error: "Server error while saving message" });
+  }
 });
 
 // ---- Start ----
