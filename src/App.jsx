@@ -6,9 +6,10 @@ import "./New.css";
 // import RouterHandler from "./RouterHandler";
 import { useEffect } from "react";
 import axios from "axios";
+import getRandomImage from "./RandomImage";
 
 export default function App() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   // const [cards, setCards] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
@@ -107,7 +108,14 @@ export default function App() {
       {cards.map((card, index) => (
         <div className="card" key={index}>
           <Link to={`/room/${card.name}`}>
-            <div className="card-image">📷</div>
+            <div className="card-image">
+              {" "}
+              <img
+                src={getRandomImage()}
+                alt="Room"
+                className="card-image"
+              />
+            </div>
             <div className="card-name">{card.name}</div>
           </Link>
         </div>
