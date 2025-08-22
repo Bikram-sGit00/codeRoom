@@ -13,15 +13,15 @@ export default function RoomPage() {
 
   const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-  // ✅ Fetch existing messages
   const fetchMessages = async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/rooms/${slug}/messages`);
+      const res = await fetch(
+        `${API_BASE}/api/rooms/${slug}/messages?t=${Date.now()}`,
+        { cache: "no-store" }
+      );
       if (res.ok) {
         const data = await res.json();
         setMessages(data);
-      } else {
-        console.error("❌ Failed to fetch messages");
       }
     } catch (err) {
       console.error("❌ Error fetching messages:", err);
@@ -32,16 +32,14 @@ export default function RoomPage() {
     fetchMessages();
   }, [slug]);
 
-  // ✅ highlight code when messages update
   useEffect(() => {
     Prism.highlightAll();
   }, [messages]);
 
-  // ✅ FIX: match backend schema (user + text instead of name + message)
   const handlePostSubmit = async (data) => {
     const payload = {
-      user: data.name || "anon",
-      text: data.message || "",
+      user: data.name?.trim() || "anon",
+      text: data.message?.trim() || "",
       code: data.code || "",
       lang: data.lang || "cpp",
     };
@@ -54,21 +52,18 @@ export default function RoomPage() {
       });
 
       if (res.ok) {
-        const savedMsg = await res.json();
-        setMessages((prev) => [...prev, savedMsg]); // append new msg
-      } else {
-        console.error("❌ Failed to save message");
+        await fetchMessages();
+        setShowPostForm(false);
       }
     } catch (err) {
       console.error("❌ Message send failed:", err);
     }
-
-    setShowPostForm(false);
   };
 
   const copyCode = (code) => {
-    navigator.clipboard.writeText(code);
-    alert("Code copied!");
+    navigator.clipboard.writeText(code).catch((err) => {
+      console.error("❌ Copy failed:", err);
+    });
   };
 
   return (
@@ -115,7 +110,13 @@ export default function RoomPage() {
         </button>
       </footer>
 
-      {showPostForm && <Post onSubmit={handlePostSubmit} />}
+      {showPostForm && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <Post onSubmit={handlePostSubmit} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
