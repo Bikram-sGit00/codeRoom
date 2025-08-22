@@ -1,10 +1,8 @@
+// Post.jsx
 import { useState } from "react";
-import { useParams } from "react-router-dom"; // keep for roomId slugging if you need it later
 import "./Post.css";
 
 export default function Post({ onSubmit }) {
-  const { roomId } = useParams(); // not used for posting here; parent handles POST
-
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [code, setCode] = useState("");
@@ -16,10 +14,9 @@ export default function Post({ onSubmit }) {
 
     setSubmitting(true);
     try {
-      // 👉 hand data to parent; parent will POST, refresh, and close modal
       await onSubmit?.({ name, message, code, lang });
 
-      // clear local fields after successful submit
+      // clear fields after success
       setName("");
       setMessage("");
       setCode("");
@@ -48,7 +45,6 @@ export default function Post({ onSubmit }) {
           onChange={(e) => setMessage(e.target.value)}
         />
 
-        {/* Code + Language selector */}
         <div className="code-label-row">
           <label className="code-label">Code</label>
           <div className="lang-select-wrap">

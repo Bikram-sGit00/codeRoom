@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from "./App";
 import RoomPage from "./pages/RoomPage";
-import Post from "./pages/Post";   // ✅ make sure you import it
+import Post from "./pages/Post";
 
 function RouterHandler() {
   return (
