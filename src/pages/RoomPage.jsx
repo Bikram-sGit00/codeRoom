@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./RoomPage.css";
 import Prism from "prismjs";
-import "prismjs/themes/prism-tomorrow.css"; // dark theme
+import "prismjs/themes/prism-tomorrow.css";
 import Post from "./Post";
 
 export default function RoomPage() {
@@ -36,12 +36,13 @@ export default function RoomPage() {
     Prism.highlightAll();
   }, [messages]);
 
-  const handlePostSubmit = async (data) => {
+  // ✅ FIX: send `name` + `message` exactly as backend expects
+  const handlePostSubmit = async ({ name, message, code, lang }) => {
     const payload = {
-      user: data.name?.trim() || "anon",
-      text: data.message?.trim() || "",
-      code: data.code || "",
-      lang: data.lang || "cpp",
+      name: name?.trim() || "anon",
+      message: message?.trim() || "",
+      code: code || "",
+      lang: lang || "cpp",
     };
 
     try {
@@ -54,6 +55,8 @@ export default function RoomPage() {
       if (res.ok) {
         await fetchMessages();
         setShowPostForm(false);
+      } else {
+        console.error("❌ Failed to save message");
       }
     } catch (err) {
       console.error("❌ Message send failed:", err);
@@ -70,23 +73,24 @@ export default function RoomPage() {
     <div className="room-container">
       <main className="post-area">
         {messages.map((m, i) => (
-          <div
-            key={i}
-            className={`post-box ${m.user === "anon" ? "me" : "other"}`}
-          >
+          <div key={i} className="post-box">
             <div className="post-header">
               <div className="profile-icon">👤</div>
               <span className="post-user">
-                {m.user} – {m.text}
+                <strong>{m.user}</strong> – {m.text}
               </span>
             </div>
 
             {m.code && (
               <div className="code-card">
                 <div className="code-card-header">
+                  <div className="mac-dots">
+                    <span className="dot red"></span>
+                    <span className="dot yellow"></span>
+                    <span className="dot green"></span>
+                  </div>
                   <span>
-                    Code – {m.lang?.toUpperCase()} – {m.code.split("\n").length}{" "}
-                    lines
+                    {m.lang?.toUpperCase()} – {m.code.split("\n").length} lines
                   </span>
                   <button
                     className="copy-btn"
