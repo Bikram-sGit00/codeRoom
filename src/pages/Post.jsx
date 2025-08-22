@@ -1,54 +1,31 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // ✅ navigate back
+import { useParams } from "react-router-dom"; // keep for roomId slugging if you need it later
 import "./Post.css";
 
-export default function Post() {
-  const { roomId } = useParams();
-  const navigate = useNavigate();
+export default function Post({ onSubmit }) {
+  const { roomId } = useParams(); // not used for posting here; parent handles POST
 
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [code, setCode] = useState("");
   const [lang, setLang] = useState("cpp");
-
-  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
-  // normalize to slug format
-  const roomSlug = roomId
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9\-]/g, "");
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    if (!name.trim() || !code.trim()) {
-      alert("Please enter your name and some code before posting.");
-      return;
-    }
+    if (!name.trim() || !code.trim() || submitting) return;
 
-    const postData = { name, message, code, lang };
-
+    setSubmitting(true);
     try {
-      const res = await fetch(`${API_BASE}/api/rooms/${roomSlug}/messages`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(postData),
-      });
+      // 👉 hand data to parent; parent will POST, refresh, and close modal
+      await onSubmit?.({ name, message, code, lang });
 
-      if (!res.ok) throw new Error("Failed to save post");
-
-      alert("✅ Code posted successfully!");
-
-      // clear inputs
+      // clear local fields after successful submit
       setName("");
       setMessage("");
       setCode("");
       setLang("cpp");
-
-      // ✅ redirect back to room page (singular /room/)
-      navigate(`/room/${roomSlug}`);
-    } catch (err) {
-      console.error("Error posting:", err);
-      alert("❌ Something went wrong while saving.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -113,7 +90,9 @@ export default function Post() {
           spellCheck="false"
         />
 
-        <button onClick={handleSubmit}>Post Code</button>
+        <button onClick={handleSubmit} disabled={submitting}>
+          {submitting ? "Posting..." : "Post Code"}
+        </button>
       </div>
     </div>
   );
