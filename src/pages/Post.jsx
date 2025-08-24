@@ -6,7 +6,7 @@ export default function Post({ onSubmit }) {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [code, setCode] = useState("");
-  const [lang, setLang] = useState("cpp");
+  const [lang, setLang] = useState("python");
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async () => {
@@ -27,7 +27,10 @@ export default function Post({ onSubmit }) {
   };
 
   return (
-    <div className="post-page">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50">
+  <div className="rounded-2xl bg-white/10 border border-white/20 shadow-xl p-6 w-full max-w-md">
+    {/* your form goes here */}
+        <div className="fix">
       <div className="post-card">
         <h1>Contribute in your classroom🚀✨</h1>
 
@@ -37,7 +40,6 @@ export default function Post({ onSubmit }) {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-
         <input
           type="text"
           placeholder="Any message🧑🏻‍💻?"
@@ -91,5 +93,9 @@ export default function Post({ onSubmit }) {
         </button>
       </div>
     </div>
+    </div>
+  </div>
+
+
   );
 }

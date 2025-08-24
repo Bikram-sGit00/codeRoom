@@ -7,7 +7,7 @@ import axios from "axios";
 import getRandomImage from "./RandomImage";
 
 export default function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);

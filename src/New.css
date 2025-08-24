@@ -16,13 +16,13 @@
 /* Modal box */
 .modal-content {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  /* backdrop-filter: blur(20px); */
   border-radius: 15px;
-  padding: 30px;
-  width: 350px;
-  text-align: center; /* Center align all content */
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  /* padding: 30px; */
+  /* width: 350px; */
+  text-align: center;
+  /* border: 1px solid rgba(255, 255, 255, 0.2); */
+  /* box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); */
 }
 
 /* Title */
