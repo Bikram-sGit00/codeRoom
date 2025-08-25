@@ -4,7 +4,7 @@ export default function Navbar({ onAdd }) {
   return (
     <nav className="navbar">
       <div className="nav-left">
-        <h1 className="logo">codeRoom🚀✨</h1>
+        <h1 className="logo ">codeRoom🚀✨</h1>
         <input
           type="text"
           className="search-bar"
