@@ -6,12 +6,34 @@
   outline: none !important;
   box-shadow: none !important;
 }
-
+/* 
 html,
 body,
 #root,
 .app {
+
+}
+/* body {
+  /* background: rgba(0, 0, 0, 0.6); /* semi-transparent black */
+  /* backdrop-filter: blur(10px); blur effect/ */
+  /* -webkit-backdrop-filter: blur(10px); for Safari */ 
+  /* color: white; */
+/* } */
+
+
+
+/* 🌌 Full page background */
+html, body, #root, .App {
+  margin: 0;
+  padding: 0;
   min-height: 100vh;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  /* background: linear-gradient(135deg, #0f172a, #1e293b, #2563eb); */
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  color: #e2e8f0;
+    min-height: 100vh;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -21,12 +43,14 @@ body,
   font-weight: 500;
   font-style: italic;
 }
-body {
-  background: rgba(0, 0, 0, 0.6); /* semi-transparent black */
-  backdrop-filter: blur(10px); /* blur effect */
-  -webkit-backdrop-filter: blur(10px); /* for Safari */
-  color: white;
+
+/* 🎨 Gradient animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
+
 
 .app.dark {
   /* background-color: #121212; */
@@ -209,3 +233,5 @@ body {
 .theme-toggle-btn:active .icon {
   transform: rotate(360deg) scale(1.2);
 }
+
+
