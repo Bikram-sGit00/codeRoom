@@ -88,7 +88,7 @@
   padding: 10px;
   display: flex;
   justify-content: center;
-  border-top: 1px solid #ddd;
+  /* border-top: 1px solid #ddd; */
 }
 
 .post-btn {
@@ -279,7 +279,7 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #fff;
   font-weight: 600;
-  padding: 12px 28px;
+  padding: 8px 70px;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
