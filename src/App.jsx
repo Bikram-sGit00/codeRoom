@@ -83,7 +83,7 @@ export default function App() {
               </span>
             )}
           </button>
-          <button onClick={() => setShowModal(true)}>
+          <button id="newRoomBtn" onClick={() => setShowModal(true)}>
             New
             <svg id="editBtn" fill="none" viewBox="0 0 20 20">
               <path
@@ -113,7 +113,7 @@ export default function App() {
       {/* Modal for Post */}
       {showModal && (
         <div className="modal">
-          <div className="modal-content">
+          <div className="modal-content" id="newRoomModal">
             <h2>Create New CodeRoom 🚀✨</h2>
 
             <input
