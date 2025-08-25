@@ -15,14 +15,14 @@
 
 /* Modal box */
 .modal-content {
-background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    border-radius: 15px;
-    padding: 30px;
-    width: 383px;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 15px;
+  padding: 30px;
+  width: 383px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* Title */
@@ -106,10 +106,15 @@ button:focus {
 
 /* Base styling */
 .icon-paper-plane {
-  width: 16px;
+  /* width: 16px;
   height: 14px;
   margin-left: 5px;
   transform: translateY(-4px) rotate(-37deg);
+  position: relative; */
+  width: 16px;
+  height: 14px;
+  margin-left: 3px;
+  transform: translateY(-5px) rotate(-31deg);
   position: relative;
 }
 
