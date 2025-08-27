@@ -6,23 +6,6 @@
   outline: none !important;
   box-shadow: none !important;
 }
-/* 
-html,
-body,
-#root,
-.app {
-
-}
-/* body {
-  /* background: rgba(0, 0, 0, 0.6); /* semi-transparent black */
-  /* backdrop-filter: blur(10px); blur effect/ */
-  /* -webkit-backdrop-filter: blur(10px); for Safari */ 
-  /* color: white; */
-/* } */
-
-
-
-/* 🌌 Full page background */
 html, body, #root, .App {
   margin: 0;
   padding: 0;
@@ -234,13 +217,6 @@ html, body, #root, .App {
   transform: rotate(360deg) scale(1.2);
 }
 
-
-/* =========================================================
-   ✅ APPENDED: Dark theme background + floating blue-glow cards
-   (scoped to .app.dark so light theme stays unchanged)
-   ========================================================= */
-
-/* Futuristic dark background (keeps sizes/layout untouched) */
 .app.dark {
   background-image:
     radial-gradient(60% 40% at 10% 0%, rgba(0, 122, 255, 0.08), transparent 60%),
