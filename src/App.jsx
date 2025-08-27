@@ -25,8 +25,6 @@ export default function App() {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
   };
-
-  // 🔹 Utility to make a safe slug from room name
   const slugify = (text) =>
     text
       .toLowerCase()
