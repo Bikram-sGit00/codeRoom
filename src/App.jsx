@@ -12,8 +12,6 @@ export default function App() {
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
 
-  
-
   // const [showModal, setShowModal] = useState(false);
 
   // Updated theme state with localStorage
@@ -27,7 +25,6 @@ export default function App() {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
   };
-
 
   // 🔹 Utility to make a safe slug from room name
   const slugify = (text) =>
@@ -110,7 +107,9 @@ export default function App() {
             </svg>
           </button>
           <button>Home</button>
-          <button>About</button>
+          <button onClick={() => window.open("https://github.com/Bikram-sGit00", "_blank")}>
+            About
+          </button>
           <button>Connect</button>
         </div>
       </nav>
