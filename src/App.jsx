@@ -7,10 +7,27 @@ import axios from "axios";
 import getRandomImage from "./RandomImage";
 
 export default function App() {
-  const [theme, setTheme] = useState("dark");
+  // const [theme, setTheme] = useState("dark");
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
+
+  
+
+  // const [showModal, setShowModal] = useState(false);
+
+  // Updated theme state with localStorage
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "dark";
+  });
+
+  // Toggle theme and persist to localStorage
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
 
   // 🔹 Utility to make a safe slug from room name
   const slugify = (text) =>
@@ -27,9 +44,9 @@ export default function App() {
       .catch((err) => console.error("Error fetching rooms:", err));
   }, []);
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  // const toggleTheme = () => {
+  //   setTheme(theme === "light" ? "dark" : "light");
+  // };
 
   const addCard = async () => {
     if (name.trim() === "") return;
