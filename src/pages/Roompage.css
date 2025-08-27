@@ -173,31 +173,6 @@
   z-index: 2000;
 }
 
-/* Modal content box
-.modal-content {
-  background: #1e1e1e;
-  padding: 20px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 600px;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
-  position: relative;
-} */
-
-/* Close button
-.modal-close {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: #fff;
-  cursor: pointer;
-} */
-
-
-/* Glassmorphism Code Card */
 .code-card {
   background: rgba(0, 102, 255, 0.15); /* subtle blue tint */
   backdrop-filter: blur(12px) saturate(150%);
@@ -209,7 +184,6 @@
   margin: 1rem 0;
 }
 
-/* Header Bar (Mac style) */
 .code-card-header {
   display: flex;
   align-items: center;
@@ -254,7 +228,6 @@
   overflow-x: auto;
 }
 
-/* Copy Button */
 .copy-btn {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(4px);
@@ -292,8 +265,6 @@
   box-shadow: 0 6px 25px rgba(0, 122, 255, 0.45);
 }
 
-/* ////// */
-
 .bottom-bar {
   position: fixed;
   bottom: 20px;
@@ -322,4 +293,15 @@
 
 .bottom-bar button:hover {
   background: rgba(0, 122, 255, 0.45);
+}
+
+
+.room-container.light {
+  background-color: #f9f9f9;
+  color: #111;
+}
+
+.room-container.dark {
+  background-color: #000000;
+  color: #fff;
 }
