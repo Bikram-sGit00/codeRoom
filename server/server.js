@@ -15,6 +15,20 @@ app.use(
   })
 );
 app.use(express.json());
+// ---- Middlewares ----
+// const allowed = [
+//   process.env.CLIENT_ORIGIN,     
+//   "http://localhost:5173",
+//   "http://localhost:3000",
+// ].filter(Boolean);
+
+// app.use(
+//   cors({
+//     origin: allowed,
+//     credentials: true,
+//   })
+// );
+
 
 // ---- MongoDB connect ----
 mongoose

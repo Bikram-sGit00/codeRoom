@@ -235,3 +235,111 @@ html, body, #root, .App {
 }
 
 
+/* =========================================================
+   ✅ APPENDED: Dark theme background + floating blue-glow cards
+   (scoped to .app.dark so light theme stays unchanged)
+   ========================================================= */
+
+/* Futuristic dark background (keeps sizes/layout untouched) */
+.app.dark {
+  background-image:
+    radial-gradient(60% 40% at 10% 0%, rgba(0, 122, 255, 0.08), transparent 60%),
+    radial-gradient(50% 35% at 90% 10%, rgba(0, 204, 255, 0.06), transparent 60%),
+    radial-gradient(70% 50% at 50% 120%, rgba(0, 122, 255, 0.07), #000 70%);
+  background-attachment: fixed;
+}
+
+/* Soft ambient glow layer (doesn't affect layout) */
+.app.dark::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(30% 20% at 20% 10%, rgba(0, 153, 255, 0.12), transparent 70%),
+    radial-gradient(25% 18% at 80% 0%, rgba(0, 204, 255, 0.10), transparent 70%);
+  filter: blur(80px);
+  opacity: 0.7;
+}
+
+/* Floating glass cards with neon-blue edge (size unchanged) */
+.app.dark .card {
+  background: rgba(17, 25, 40, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 162, 255, 0.35);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(0, 162, 255, 0.25);
+  transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+  /* transition: transform 0.5s ease-in; */
+}
+.app.dark .card:hover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: rgba(0, 180, 255, 0.55);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.55),
+    0 0 32px rgba(0, 180, 255, 0.35);
+      box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4);
+  /* transform: translate ( ease-in-out); */
+  /* transform: translate(100px, 0); */
+}
+
+/* Card image kept same size, just refine edge in dark */
+.app.dark .card-image {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Glass navbar with subtle blue line; no layout change */
+.app.dark .navbar {
+  background: rgba(8, 12, 18, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /* border-bottom: 1px solid rgba(0, 162, 255, 0.35); */
+  position: sticky; /* non-destructive fix for missing ; in original */
+  top: 0;
+  z-index: 10;
+}
+
+/* Glowing search bar (same padding/size) */
+.app.dark .search-bar {
+  border: 1px solid rgba(0, 162, 255, 0.45);
+  background: rgba(255, 255, 255, 0.03);
+  color: #e6f6ff;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.app.dark .search-bar::placeholder {
+  color: rgba(230, 246, 255, 0.5);
+}
+.app.dark .search-bar:focus {
+  border-color: rgba(0, 180, 255, 0.7);
+  box-shadow: 0 0 0 4px rgba(0, 162, 255, 0.18);
+  outline: none;
+}
+
+/* Keep your existing nav buttons but add subtle glow in dark */
+.app.dark .nav-buttons button {
+  background-color: transparent
+  /* border: 1px solid rgba(0, 162, 255, 0.35); */
+  /* box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5); */
+}
+.app.dark .nav-buttons button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px rgba(0, 180, 255, 0.35);
+}
+
+/* Optional: theme toggle hover tweak to match */
+.app.dark .theme-toggle-btn:hover {
+  background: rgba(0, 162, 255, 0.1);
+}
+
+
+
+
+
+
+
