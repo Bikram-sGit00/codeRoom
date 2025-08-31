@@ -22,7 +22,8 @@ app.use(
       "http://localhost:5173",
       "http://localhost:3000",
       "https://coderoom123.vercel.app",
-      "coderoomlive.vercel.app"
+      "coderoomlive.vercel.app",
+      "https://coderoom-git-main-soulkinggit16s-projects.vercel.app"
     ],
     credentials: true,
   })
