@@ -147,3 +147,9 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
   console.log(`🚀 API running on http://localhost:${PORT}`)
 );
+
+
+// ---- Root route (just for testing Render) ----
+app.get("/", (req, res) => {
+  res.send("🚀 CodeRoom API is running!");
+});

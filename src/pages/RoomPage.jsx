@@ -1,7 +1,7 @@
 // RoomPage.jsx
 import { useParams } from "react-router-dom";
 import { useEffect, useState, createContext, useContext } from "react";
-import "./Roompage.css";
+import "./RoomPage.css";
 import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
 import Post from "./Post";
