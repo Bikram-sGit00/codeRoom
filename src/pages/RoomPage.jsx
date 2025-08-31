@@ -1,6 +1,6 @@
 // RoomPage.jsx
 import { useParams } from "react-router-dom";
-import { useEffect, useState, createContext, useContext } from "react";
+import { useEffect, useState, createContext } from "react";
 import "./RoomPage.css";
 import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
@@ -22,11 +22,11 @@ export default function RoomPage() {
   });
 
   // Optional toggle (if you need button later)
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-  };
+  // const toggleTheme = () => {
+  //   const newTheme = theme === "light" ? "dark" : "light";
+  //   setTheme(newTheme);
+  //   localStorage.setItem("theme", newTheme);
+  // };
 
   const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
