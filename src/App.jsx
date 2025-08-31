@@ -6,13 +6,16 @@ import "./New.css";
 import axios from "axios";
 import getRandomImage from "./RandomImage";
 
+// 🔹 Auto-switch API URL
+const API_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:5000"
+    : import.meta.env.VITE_API_URL;
+
 export default function App() {
-  // const [theme, setTheme] = useState("dark");
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [cards, setCards] = useState([]);
-
-  // const [showModal, setShowModal] = useState(false);
 
   // Updated theme state with localStorage
   const [theme, setTheme] = useState(() => {
@@ -25,6 +28,7 @@ export default function App() {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
   };
+
   const slugify = (text) =>
     text
       .toLowerCase()
@@ -34,20 +38,16 @@ export default function App() {
   // Load cards from backend
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/rooms")
+      .get(`${API_URL}/api/rooms`)
       .then((res) => setCards(res.data))
       .catch((err) => console.error("Error fetching rooms:", err));
   }, []);
-
-  // const toggleTheme = () => {
-  //   setTheme(theme === "light" ? "dark" : "light");
-  // };
 
   const addCard = async () => {
     if (name.trim() === "") return;
 
     try {
-      const res = await axios.post("http://localhost:5000/api/rooms", { name });
+      const res = await axios.post(`${API_URL}/api/rooms`, { name });
       setCards([...cards, res.data]); // append new room from backend
       setName("");
       setShowModal(false);
@@ -105,7 +105,11 @@ export default function App() {
             </svg>
           </button>
           <button>Home</button>
-          <button onClick={() => window.open("https://github.com/Bikram-sGit00", "_blank")}>
+          <button
+            onClick={() =>
+              window.open("https://github.com/Bikram-sGit00", "_blank")
+            }
+          >
             About
           </button>
           <button>Connect</button>
